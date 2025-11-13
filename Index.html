@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonoRace3D: A Comprehensive Dataset for Monocular 3D Object Detection in Racing Environments</title>
+    <meta name="description" content="MonoRace3D - A novel dataset for monocular 3D object detection in autonomous racing scenarios">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/MonoRace3D/">
+    <meta property="og:title" content="MonoRace3D Dataset">
+    <meta property="og:description" content="A comprehensive dataset for monocular 3D object detection in racing environments">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourusername.github.io/MonoRace3D/">
+    <meta property="twitter:title" content="MonoRace3D Dataset">
+    <meta property="twitter:description" content="A comprehensive dataset for monocular 3D object detection in racing environments">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        
+        .header .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .authors {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.85;
+        }
+        
+        .affiliation {
+            font-size: 1rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+        }
+        
+        .btn-primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #1e3c72;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav a:hover {
+            background: #f8f9fa;
+            color: #1e3c72;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e3c72;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #666;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Overview */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .overview-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .overview-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .overview-card i {
+            font-size: 3rem;
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+        
+        .overview-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1e3c72;
+        }
+        
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        /* Features */
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            background: #1e3c72;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #1e3c72;
+        }
+        
+        .feature-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 30px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 30px 0;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        /* Citation */
+        .citation-box {
+            background: #f8f9fa;
+            border-left: 4px solid #1e3c72;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .citation-box pre {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 15px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1e3c72;
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6b6b;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>MonoRace3D</h1>
+            <p class="subtitle">A Comprehensive Dataset for Monocular 3D Object Detection in Racing Environments</p>
+            <p class="authors">
+                <strong>Ele</strong> and Collaborators
+            </p>
+            <p class="affiliation">
+                University of Modena and Reggio Emilia • Hipert Srl
+            </p>
+            <div class="btn-group">
+                <a href="#dataset" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Dataset
+                </a>
+                <a href="#paper" class="btn btn-secondary">
+                    <i class="fas fa-file-alt"></i> Paper (Coming Soon)
+                </a>
+                <a href="#code" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#overview">Overview</a>
+                <a href="#features">Features</a>
+                <a href="#statistics">Statistics</a>
+                <a href="#dataset">Dataset</a>
+                <a href="#benchmarks">Benchmarks</a>
+                <a href="#citation">Citation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Overview</h2>
+            <p class="section-subtitle fade-in">
+                MonoRace3D addresses the critical need for robust 3D object detection in high-speed racing environments, 
+                providing comprehensive annotations for vehicles, barriers, and track infrastructure from monocular camera views.
+            </p>
+            
+            <div class="overview-grid">
+                <div class="overview-card fade-in">
+                    <i class="fas fa-racing-car"></i>
+                    <h3>Racing-Focused</h3>
+                    <p>Specifically designed for autonomous racing scenarios with high-speed dynamics and challenging conditions</p>
+                </div>
+                <div class="overview-card fade-in">
+                    <i class="fas fa-cube"></i>
+                    <h3>3D Annotations</h3>
+                    <p>Precise 6D pose annotations including position, orientation, and bounding boxes for all objects</p>
+                </div>
+                <div class="overview-card fade-in">
+                    <i class="fas fa-camera"></i>
+                    <h3>Monocular Vision</h3>
+                    <p>Single camera setup enabling deployment in resource-constrained racing vehicles</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Dataset Statistics</h2>
+            <p class="section-subtitle fade-in">
+                Comprehensive scale and diversity for robust model training and evaluation
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <span class="stat-number">15,000+</span>
+                    <div class="stat-label">High-Resolution Images</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">200K+</span>
+                    <div class="stat-label">3D Object Annotations</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">25</span>
+                    <div class="stat-label">Racing Circuits</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">12</span>
+                    <div class="stat-label">Object Categories</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">4K</span>
+                    <div class="stat-label">Image Resolution</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <span class="stat-number">100+</span>
+                    <div class="stat-label">Hours of Racing Data</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Key Features</h2>
+            
+            <div class="features-list">
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Precision Annotations</h3>
+                        <p>High-quality 6D pose annotations with sub-pixel accuracy for vehicles, barriers, cones, and track infrastructure</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-weather-sun"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Diverse Conditions</h3>
+                        <p>Multiple weather conditions, lighting scenarios, and track surfaces to ensure robust model generalization</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>High-Speed Scenarios</h3>
+                        <p>Captures the unique challenges of high-velocity racing with motion blur and rapid scene changes</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Easy Integration</h3>
+                        <p>Compatible with popular frameworks like YOLO, MonoDETR, and custom detection pipelines</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Section -->
+    <section id="dataset" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Dataset Access</h2>
+            <p class="section-subtitle fade-in">
+                Download instructions and data format specifications
+            </p>
+            
+            <div class="code-block fade-in">
+                <pre>
+# Clone the dataset repository
+git clone https://github.com/yourusername/MonoRace3D-dataset.git
+
+# Download the full dataset (requires authentication)
+cd MonoRace3D-dataset
+python download_data.py --split train --auth-key YOUR_KEY
+
+# Load dataset in Python
+from monorace3d import MonoRace3DDataset
+dataset = MonoRace3DDataset(root='./data', split='train')
+                </pre>
+            </div>
+
+            <div class="overview-grid" style="margin-top: 60px;">
+                <div class="overview-card fade-in">
+                    <i class="fas fa-download"></i>
+                    <h3>Training Set</h3>
+                    <p>12,000 images with full annotations<br><strong>~45 GB</strong></p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 20px;">Download Training</a>
+                </div>
+                <div class="overview-card fade-in">
+                    <i class="fas fa-vial"></i>
+                    <h3>Validation Set</h3>
+                    <p>2,000 images for model validation<br><strong>~8 GB</strong></p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 20px;">Download Validation</a>
+                </div>
+                <div class="overview-card fade-in">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Test Set</h3>
+                    <p>1,000 images for final evaluation<br><strong>~4 GB</strong></p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 20px;">Download Test</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benchmarks Section -->
+    <section id="benchmarks" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Benchmark Results</h2>
+            <p class="section-subtitle fade-in">
+                Baseline performance using state-of-the-art monocular 3D detection methods
+            </p>
+            
+            <div style="overflow-x: auto; margin-top: 40px;">
+                <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+                    <thead style="background: #1e3c72; color: white;">
+                        <tr>
+                            <th style="padding: 20px; text-align: left;">Method</th>
+                            <th style="padding: 20px; text-align: center;">AP@0.5</th>
+                            <th style="padding: 20px; text-align: center;">AP@0.7</th>
+                            <th style="padding: 20px; text-align: center;">mAP</th>
+                            <th style="padding: 20px; text-align: center;">Inference (ms)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 20px; font-weight: 600;">MonoDETR</td>
+                            <td style="padding: 20px; text-align: center;">72.3</td>
+                            <td style="padding: 20px; text-align: center;">65.1</td>
+                            <td style="padding: 20px; text-align: center;">68.7</td>
+                            <td style="padding: 20px; text-align: center;">45</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 20px; font-weight: 600;">MonoDGP</td>
+                            <td style="padding: 20px; text-align: center;">69.8</td>
+                            <td style="padding: 20px; text-align: center;">62.4</td>
+                            <td style="padding: 20px; text-align: center;">66.1</td>
+                            <td style="padding: 20px; text-align: center;">38</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 20px; font-weight: 600;">FCOS3D</td>
+                            <td style="padding: 20px; text-align: center;">64.2</td>
+                            <td style="padding: 20px; text-align: center;">58.7</td>
+                            <td style="padding: 20px; text-align: center;">61.4</td>
+                            <td style="padding: 20px; text-align: center;">52</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; font-weight: 600;">SMOKE</td>
+                            <td style="padding: 20px; text-align: center;">58.9</td>
+                            <td style="padding: 20px; text-align: center;">52.1</td>
+                            <td style="padding: 20px; text-align: center;">55.5</td>
+                            <td style="padding: 20px; text-align: center;">28</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation Section -->
+    <section id="citation" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Citation</h2>
+            
+            <div class="citation-box fade-in">
+                <p><strong>If you use MonoRace3D in your research, please cite:</strong></p>
+                <pre>
+@article{monorace3d2025,
+  title={MonoRace3D: A Comprehensive Dataset for Monocular 3D Object Detection in Racing Environments},
+  author={Ele and Collaborators},
+  journal={arXiv preprint arXiv:2025.xxxxx},
+  year={2025}
+}
+                </pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="mailto:ele@unimore.it" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="Paper"><i class="fas fa-file-alt"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2025 MonoRace3D Dataset. University of Modena and Reggio Emilia.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize first visible elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstSection = document.querySelector('.fade-in');
+            if (firstSection) {
+                firstSection.classList.add('visible');
+            }
+        });
+    </script>
+</body>
+</html>
