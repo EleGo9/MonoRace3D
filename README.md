@@ -59,6 +59,29 @@ MonoRace3D/
 │   └── calib/              # 231 camera parameters
 ```
 
+## Sample Images
+
+### Front Center Camera (test_fc)
+
+<p align="center">
+  <img src="examples/000006_fc.png" width="30%" />
+  <img src="examples/000030_fc.png" width="30%" />
+  <img src="examples/000208_fc.png" width="30%" />
+</p>
+
+### Front Right Camera (test_fr)
+
+<p align="center">
+  <img src="examples/000055_fr.png" width="30%" />
+  <img src="examples/000283_fr.png" width="30%" />
+  <img src="examples/000312_fr.png" width="30%" />
+</p>
+
+
+
+# Download dataset
+https://mega.nz/file/KgIAHDRI#NTOeJRNdQUmvbyAd0U11sqc9IjeVRIxCcJrfbu2p2v8
+
 ## Depth Distribution
 
 The dataset provides a realistic depth distribution for racing scenarios:
@@ -66,16 +89,6 @@ The dataset provides a realistic depth distribution for racing scenarios:
 - **Mean depth**: 45.5 meters
 - **Median depth**: 42.3 meters
 - **Range**: 6.0m to 135.3m
-- **25th percentile**: 29.9m
-- **75th percentile**: 55.0m
-- **95th percentile**: 95.8m
-
-## Scale Distribution
-
-Object scales are categorized based on bounding box area:
-- **Small objects** (< 32²): 4,236 instances (94.3%)
-- **Medium objects** (32² - 96²): 1,312 instances (29.2%)  
-- **Large objects** (> 96²): 18 instances (0.4%)
 
 ## Evaluation Metrics
 
