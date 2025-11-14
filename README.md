@@ -4,7 +4,7 @@ A comprehensive dataset for monocular 3D object detection in racing setting.
 
 ## Dataset Overview
 
-MonoRace3D provides a specialized dataset for monocular 3D car detection in autonomous racing scenarios. The dataset contains 4,490 images for training 584 for test, and  with precise 3D bounding box annotations captured from real autonomous racing vehicles across multiple professional racing circuits.
+MonoRace3D provides a specialized dataset for monocular 3D car detection in autonomous racing scenarios. The dataset contains 4,490 images for training 586 for test, and  with precise 3D bounding box annotations captured from real autonomous racing vehicles across multiple professional racing circuits.
 
 ### Key Statistics
 
@@ -50,13 +50,13 @@ MonoRace3D/
 │   ├── label_2/            # 4'490 labels  
 │   └── calib/              # 4'490 camera parameters
 ├── test_fr/
-│   ├── image_2/            # 353 training images
-│   ├── label_2/            # 353 labels  
-│   └── calib/              # 353 camera parameters
+│   ├── image_2/            # 354 training images
+│   ├── label_2/            # 354 labels  
+│   └── calib/              # 354 camera parameters
 ├── test_fc/
-│   ├── image_2/            # 231 training images
-│   ├── label_2/            # 231 labels  
-│   └── calib/              # 231 camera parameters
+│   ├── image_2/            # 232 training images
+│   ├── label_2/            # 232 labels  
+│   └── calib/              # 232 camera parameters
 ```
 
 ## Sample Images
